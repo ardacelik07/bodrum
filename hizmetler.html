@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hizmetler | Pilot Garage Bodrum</title>
+  <style>
+    :root { --red:#d90429; --red-dark:#b10222; --text:#181818; --muted:#666; --border:#e8e8e8; --radius:14px; }
+    *{box-sizing:border-box;margin:0;padding:0} body{font-family:Inter,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.6}
+    a{text-decoration:none;color:inherit} .container{width:min(1120px,92%);margin:0 auto}
+    .navbar{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:20}
+    .nav-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between}
+    .logo{width:150px} .btn{padding:11px 18px;border-radius:999px;font-weight:700}
+    .btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-dark)}
+    .hero{padding:60px 0;background:linear-gradient(120deg,#111,#1d1d1d);color:#fff}
+    .hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1}.hero p{margin-top:10px;color:#ddd;max-width:62ch}
+    .section{padding:62px 0}.grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .card{border:1px solid var(--border);border-radius:var(--radius);padding:22px;background:#fff}
+    .card h3{margin-bottom:8px}.card p{color:var(--muted)}
+    .tag{display:inline-block;background:#ffe9ed;color:var(--red);padding:4px 10px;border-radius:999px;font-weight:700;font-size:.85rem;margin-bottom:10px}
+    ul{padding-left:18px;color:#444}
+    .footer{padding:22px 0;background:#111;color:#ccc;text-align:center}
+    @media(min-width:860px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html"><img class="logo" src="logo6.svg" alt="Pilot Garage Logo"></a>
+      <a class="btn btn-primary" href="index.html#appointment">Randevu Al</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Detayli Hizmetlerimiz</h1>
+      <p>Pilot Garage Bodrum'da uygulanan tum kontroller standart prosedurlerle yapilir. Her hizmet sonunda dijital raporlama sunulur.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid">
+      <article class="card">
+        <span class="tag">Full Ekspertiz</span>
+        <h3>Arac Genel Kontrol Paketi</h3>
+        <p>Aracinizin tum kritik noktalarini tek oturumda kontrol ederiz.</p>
+        <ul>
+          <li>Motor mekanik kontrolu</li>
+          <li>Sase ve alt takim incelemesi</li>
+          <li>Boya-kaporta olcumu</li>
+          <li>Fren, suspansiyon ve yol testi</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag">Dyno Testi</span>
+        <h3>Performans ve Guc Olcumu</h3>
+        <p>Gercek motor cikis degerleri ve tork grafigi olusturulur.</p>
+        <ul>
+          <li>Beygir gucu olcumu</li>
+          <li>Tork ve devir analizi</li>
+          <li>Guc kaybi tespiti</li>
+          <li>Raporlu karsilastirma</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag">Computest</span>
+        <h3>Elektronik Sistem Taramasi</h3>
+        <p>Ariza lambalari, sensorler ve kontrol uniteleri detayli taranir.</p>
+        <ul>
+          <li>Ariza kodu analizi</li>
+          <li>Canli veri kontrolu</li>
+          <li>ECU / ABS / Airbag taramasi</li>
+          <li>Silinmis hata gecmisi kontrolu</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" style="background:#f8f8f8">
+    <div class="container">
+      <h2 style="margin-bottom:14px">Neden Bu Kadar Detayli?</h2>
+      <p style="color:#666;max-width:70ch">Ikinci el arac alim-satiminda gizli riskleri onceden gormek icin detayli inceleme zorunludur. Pilot Garage Bodrum olarak, raporlarimizi sadece "var/yok" mantigi ile degil, teknik yorumlarla birlikte sunuyoruz.</p>
+    </div>
+  </section>
+
+  <footer class="footer">© 2025 Pilot Garage Bodrum</footer>
+</body>
+</html>

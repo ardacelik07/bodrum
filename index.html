@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pilot Garage Bodrum | Profesyonel Oto Ekspertiz</title>
+  <style>
+    :root {
+      --black: #0b0b0b;
+      --black-soft: #151515;
+      --white: #ffffff;
+      --text: #171717;
+      --muted: #6b6b6b;
+      --red: #d90429;
+      --red-dark: #b10222;
+      --border: #e9e9e9;
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+      --radius: 16px;
+      --maxw: 1180px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    .container { width: min(var(--maxw), 92%); margin: 0 auto; }
+    .section { padding: 82px 0; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.12; margin-bottom: 12px; }
+    .section-subtitle { color: var(--muted); max-width: 720px; margin-bottom: 34px; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      transition: background-color .25s ease, box-shadow .25s ease;
+      border-bottom: 1px solid #ececec;
+    }
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+    }
+    .logo {
+      width: clamp(120px, 18vw, 180px);
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.22));
+    }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-links { display: none; gap: 18px; }
+    .nav-links a {
+      color: #2a2a2a;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: background-color .2s ease, color .2s ease;
+    }
+    .nav-links a:hover { background: #f3f3f3; color: var(--red); }
+    .menu-toggle {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid #d9d9d9;
+      background: #fff; color: #111; cursor: pointer;
+      display: inline-grid; place-items: center;
+    }
+    .menu-toggle span { width: 18px; height: 2px; background: #111; display: block; margin: 2px 0; }
+    .mobile-menu {
+      position: absolute; top: 78px; left: 0; right: 0;
+      background: #ffffff; border: 1px solid #e8e8e8;
+      border-radius: 14px; box-shadow: var(--shadow); padding: 10px; display: none;
+    }
+    .mobile-menu.open { display: grid; gap: 6px; }
+    .mobile-menu a { color: #222; padding: 10px 12px; border-radius: 9px; font-weight: 700; }
+    .mobile-menu a:hover { background: #f5f5f5; color: var(--red); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 999px; border: 1px solid transparent; font-weight: 700;
+      padding: 12px 22px; transition: .2s ease; cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--red); color: #fff; }
+    .btn-primary:hover { background: var(--red-dark); }
+    .btn-outline { border-color: #2f2f2f; color: #222; background: #fff; }
+    .btn-outline:hover { border-color: #111; background: #f5f5f5; }
+
+    .hero {
+      min-height: 92vh;
+      color: #fff;
+      background: #101010;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 44px 0 80px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(100deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.74) 40%, rgba(0,0,0,.44) 68%, rgba(0,0,0,.66) 100%),
+        radial-gradient(circle at 78% 18%, rgba(217,4,41,.28), rgba(217,4,41,0) 38%);
+      z-index: 1;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg-layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity .8s ease;
+      transform: scale(1.03);
+    }
+    .hero-bg-layer.active { opacity: 1; }
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 640px;
+      gap: 22px;
+      align-items: center;
+    }
+    .hero h1 { font-size: clamp(2rem, 6vw, 4rem); line-height: 1.05; max-width: 14ch; margin-bottom: 18px; }
+    .hero p { color: #d2d2d2; max-width: 54ch; margin-bottom: 28px; font-size: clamp(1rem, 2.5vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .86rem;
+      margin-bottom: 16px;
+      color: #f1f1f1;
+    }
+    .hero-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #31d167;
+      box-shadow: 0 0 0 4px rgba(49, 209, 103, 0.2);
+    }
+    .bg-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.45);
+      border: 1px solid rgba(255,255,255,.22);
+      cursor: pointer;
+      padding: 0;
+    }
+    .dot.active { background: #fff; transform: scale(1.24); }
+
+    .trust-bar { background: var(--black); color: #fff; }
+    .trust-grid {
+      padding: 22px 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px 18px; text-align: center;
+    }
+    .trust-item { font-weight: 700; font-size: .92rem; }
+
+    .section.alt { background: #f7f7f7; }
+    .services-grid, .steps-grid, .why-grid, .testimonials-grid {
+      display: grid; grid-template-columns: 1fr; gap: 18px;
+    }
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; box-shadow: 0 10px 24px rgba(0,0,0,.05);
+    }
+    .icon-wrap {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(217,4,41,.09); color: var(--red);
+      display: inline-grid; place-items: center; margin-bottom: 14px;
+    }
+    .card h3 { margin-bottom: 8px; font-size: 1.18rem; }
+    .card p { color: var(--muted); }
+    .learn-link { display: inline-block; margin-top: 12px; color: var(--red); font-weight: 700; }
+    .step-number {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--red); color: #fff;
+      display: grid; place-items: center; font-weight: 800; margin-bottom: 12px;
+    }
+    .why-item { display: flex; gap: 10px; align-items: flex-start; }
+    .why-icon {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(217,4,41,.1); color: var(--red); display: grid; place-items: center; font-weight: 800;
+    }
+    .quote { color: var(--red); font-size: 1.9rem; line-height: 1; margin-bottom: 8px; }
+
+    .cta-band {
+      background: linear-gradient(100deg, #b10222, #d90429 45%, #f1284c);
+      color: #fff;
+    }
+    .cta-inner { text-align: center; }
+    .cta-inner .btn { margin-top: 16px; background: #fff; color: #111; }
+    .cta-inner .btn:hover { background: #f4f4f4; }
+
+    .appointment-wrap, .contact-grid {
+      display: grid; grid-template-columns: 1fr; gap: 18px;
+    }
+    .appointment-form { display: grid; gap: 12px; }
+    .field label { display: inline-block; margin-bottom: 6px; font-weight: 600; }
+    .field input {
+      width: 100%; border: 1px solid #d8d8d8; border-radius: 10px;
+      padding: 12px 13px; outline: none; background: #fff;
+    }
+    .field input:focus { border-color: var(--red); }
+    .helper { color: var(--muted); font-size: .9rem; margin-top: 8px; }
+    .map-wrap iframe { width: 100%; min-height: 320px; border: 0; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .footer { background: #0f0f0f; color: #c8c8c8; padding: 24px 0; text-align: center; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    .whatsapp-float {
+      position: fixed; right: 16px; bottom: 16px; width: 56px; height: 56px; border-radius: 50%;
+      display: inline-grid; place-items: center; background: #25d366; color: #fff;
+      box-shadow: 0 12px 26px rgba(0,0,0,.3); z-index: 1050;
+    }
+    .whatsapp-float svg { width: 28px; height: 28px; }
+
+    @media (min-width: 640px) {
+      .trust-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .services-grid, .testimonials-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (min-width: 920px) {
+      .menu-toggle, .mobile-menu { display: none !important; }
+      .nav-links { display: flex; }
+      .services-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .steps-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .why-grid, .testimonials-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .appointment-wrap, .contact-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#top" aria-label="Pilot Garage Ana Sayfa">
+        <img class="logo" src="logo6.svg" alt="Pilot Garage Bodrum Logo" />
+      </a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Ana gezinme">
+          <a href="hizmetler.html">Hizmetler</a>
+          <a href="nasil-calisir.html">Nasil Calisir</a>
+          <a href="yorumlar.html">Yorumlar</a>
+          <a href="iletisim.html">Iletisim</a>
+        </nav>
+        <a class="btn btn-primary" href="#appointment">Randevu Al</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menuyu ac/kapat" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav class="mobile-menu" id="mobileMenu" aria-label="Mobil gezinme">
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasil Calisir</a>
+        <a href="yorumlar.html">Yorumlar</a>
+        <a href="#appointment">Randevu Al</a>
+        <a href="iletisim.html">Iletisim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-bg-layer active" id="bgLayer1" style="background-image:url('indir3.jfif')"></div>
+        <div class="hero-bg-layer" id="bgLayer2" style="background-image:url('indir2.jfif')"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <span class="hero-kicker">Bodrum'da Guvenilir Ekspertiz</span>
+          <h1>Aracinizi Guvenle Alin veya Satin</h1>
+          <p>Bodrum'da TSE belgeli, tarafsiz ve hizli oto ekspertiz hizmeti.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#appointment">Ekspertiz Randevusu Al</a>
+            <a class="btn btn-outline" href="tel:+90252XXXXXXX">Hemen Ara</a>
+          </div>
+          <div class="bg-dots" id="bgDots" aria-label="Arka plan gorsel secici"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-bar">
+      <div class="container trust-grid">
+        <p class="trust-item">Turkiye Genelinde 350+ Sube</p>
+        <p class="trust-item">TSE Belgeli Hizmet</p>
+        <p class="trust-item">10.000+ Ekspertiz</p>
+        <p class="trust-item">2011'den beri guven</p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section-title reveal">Hizmetlerimiz</h2>
+        <p class="section-subtitle reveal">Arac alirken veya satarken riskleri azaltan profesyonel kontrolleri tek noktada sunuyoruz.</p>
+        <div class="services-grid">
+          <article class="card reveal">
+            <div class="icon-wrap">🔧</div>
+            <h3>Full Arac Ekspertizi</h3>
+            <p>Motor, sase, boya, kaporta, fren ve elektronik sistemler dahil kapsamli kontrol.</p>
+            <a class="learn-link" href="#appointment">Detayli Bilgi</a>
+          </article>
+          <article class="card reveal">
+            <div class="icon-wrap">📈</div>
+            <h3>Dyno Testi</h3>
+            <p>Aracinizin gercek beygir gucu ve tork degerlerini olcup performans durumunu raporlariz.</p>
+            <a class="learn-link" href="#appointment">Detayli Bilgi</a>
+          </article>
+          <article class="card reveal">
+            <div class="icon-wrap">💻</div>
+            <h3>Computest</h3>
+            <p>Ariza kodlari, sensor hatalari ve elektronik sistem sagligi icin detayli tarama.</p>
+            <a class="learn-link" href="#appointment">Detayli Bilgi</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="how-it-works">
+      <div class="container">
+        <h2 class="section-title reveal">Nasil Calisir?</h2>
+        <p class="section-subtitle reveal">Sadece 3 adimda net, tarafsiz ve guvenilir ekspertiz sonucu.</p>
+        <div class="steps-grid">
+          <article class="card reveal">
+            <span class="step-number">1</span>
+            <h3>Randevu Olusturun</h3>
+            <p>Online formu doldurun veya telefonla uygun saatinizi secin.</p>
+          </article>
+          <article class="card reveal">
+            <span class="step-number">2</span>
+            <h3>Aracinizi Getirin</h3>
+            <p>Yaklasik 45 dakikada tum teknik kontroller tamamlanir.</p>
+          </article>
+          <article class="card reveal">
+            <span class="step-number">3</span>
+            <h3>Raporu Aninda Alin</h3>
+            <p>Dijital raporunuzla guvenle alim-satim kararini verin.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why-us">
+      <div class="container">
+        <h2 class="section-title reveal">Neden Pilot Garage Bodrum?</h2>
+        <div class="why-grid">
+          <article class="card why-item reveal"><span class="why-icon">✓</span><p>Sertifikali ve tarafsiz uzman ekip</p></article>
+          <article class="card why-item reveal"><span class="why-icon">✓</span><p>Son teknoloji test ve olcum ekipmanlari</p></article>
+          <article class="card why-item reveal"><span class="why-icon">✓</span><p>Seffaf, TSE standartlarina uygun raporlama</p></article>
+          <article class="card why-item reveal"><span class="why-icon">✓</span><p>350+ subeli franchise guvencesi</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="testimonials">
+      <div class="container">
+        <h2 class="section-title reveal">Musteri Yorumlari</h2>
+        <div class="testimonials-grid">
+          <article class="card reveal">
+            <div class="quote">"</div>
+            <p>Bodrum'da alacagim arac icin burada ekspertiz yaptirdim. Rapor cok net ve anlasilirdi.</p>
+            <h3>Mehmet K.</h3>
+          </article>
+          <article class="card reveal">
+            <div class="quote">"</div>
+            <p>Randevu saati, iletisim ve hiz cok iyiydi. Computest sonucu sayesinde gizli arizayi gorduk.</p>
+            <h3>Ayse D.</h3>
+          </article>
+          <article class="card reveal">
+            <div class="quote">"</div>
+            <p>Dyno + full ekspertiz yaptirdim. Satis oncesi kafamdaki tum soru isaretleri bitti.</p>
+            <h3>Burak T.</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-band">
+      <div class="container cta-inner reveal">
+        <h2 class="section-title">Uzman Gormeden Arac Almayin</h2>
+        <a href="#appointment" class="btn">Bugun Randevu Olusturun</a>
+      </div>
+    </section>
+
+    <section class="section" id="appointment">
+      <div class="container appointment-wrap">
+        <div class="reveal">
+          <h2 class="section-title">Ekspertiz Randevu Formu</h2>
+          <p class="section-subtitle">Bilgilerinizi birakin, ekibimiz sizinle en kisa surede iletisime gecsin.</p>
+        </div>
+        <div class="card reveal">
+          <form class="appointment-form" id="appointmentForm">
+            <div class="field"><label for="name">Ad Soyad</label><input id="name" name="name" type="text" placeholder="Adinizi yazin" required /></div>
+            <div class="field"><label for="phone">Telefon</label><input id="phone" name="phone" type="tel" placeholder="+90 5XX XXX XX XX" required /></div>
+            <div class="field"><label for="date">Tarih</label><input id="date" name="date" type="date" required /></div>
+            <div class="field"><label for="plate">Arac Plakasi</label><input id="plate" name="plate" type="text" placeholder="34 ABC 123" required /></div>
+            <button class="btn btn-primary" type="submit">Randevu Talebi Gonder</button>
+          </form>
+          <p class="helper" id="formMessage">Form su an on yuz olarak calismaktadir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="contact">
+      <div class="container">
+        <h2 class="section-title reveal">Iletisim ve Konum</h2>
+        <div class="contact-grid">
+          <div class="card reveal">
+            <p><strong>Adres:</strong><br />Kibris Sehitleri Cad, Cumhuriyet Mah, 1615. Sk. No:4, Bodrum/Mugla</p>
+            <p><strong>Telefon:</strong><br /><a href="tel:+90252XXXXXXX">+90 (252) XXX XX XX</a></p>
+            <p><strong>Calisma Saatleri:</strong><br />Pzt - Cmt: 08:30 - 18:30</p>
+          </div>
+          <div class="map-wrap reveal">
+            <iframe
+              title="Pilot Garage Bodrum Harita"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=K%C4%B1br%C4%B1s+%C5%9Eehitleri+Cad,+Cumhuriyet+Mah,+1615.+Sk.+No:4,+Bodrum%2FMu%C4%9Fla&output=embed">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2025 Pilot Garage Bodrum. Tum haklari saklidir.</div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/905000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletisime gec">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+      <path d="M19.1 17.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.8.2-.2.3-.9 1-1.1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.2-.7.2-.2.3-.4.5-.6.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.3 3.5 1.4 3.8.2.2 2.5 3.9 6.1 5.4.9.4 1.6.6 2.1.7.9.3 1.8.3 2.5.2.8-.1 2.4-1 2.8-1.9.3-.9.3-1.7.2-1.9-.1-.2-.3-.2-.6-.4z"/>
+      <path d="M16.2 3.1C9.1 3.1 3.3 8.8 3.3 15.9c0 2.3.6 4.5 1.8 6.4L3.1 29l6.9-1.8c1.8 1 3.9 1.5 6.1 1.5h.1c7.1 0 12.9-5.7 12.9-12.8 0-3.4-1.3-6.7-3.8-9.1-2.4-2.4-5.6-3.7-9.1-3.7zm0 23.4h-.1c-1.9 0-3.8-.5-5.5-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6 0-5.9 4.9-10.7 10.8-10.7 2.9 0 5.6 1.1 7.6 3.2 2 2 3.2 4.8 3.2 7.6 0 5.9-4.9 10.7-10.7 10.7z"/>
+    </svg>
+  </a>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const revealElements = document.querySelectorAll(".reveal");
+    const appointmentForm = document.getElementById("appointmentForm");
+    const formMessage = document.getElementById("formMessage");
+    const bgLayers = [
+      document.getElementById("bgLayer1"),
+      document.getElementById("bgLayer2")
+    ];
+    const bgDots = document.getElementById("bgDots");
+    const heroBackgrounds = ["indir3.jfif", "indir2.jfif"];
+    let currentBg = 0;
+    let bgTimer;
+
+    function handleNavScroll() {
+      navbar.classList.toggle("scrolled", window.scrollY > 24);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    revealElements.forEach((el) => observer.observe(el));
+    window.addEventListener("scroll", handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    function createBgDots() {
+      bgDots.innerHTML = "";
+      heroBackgrounds.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.className = "dot";
+        dot.setAttribute("aria-label", `${index + 1}. arka plana git`);
+        dot.addEventListener("click", () => setBackground(index, true));
+        bgDots.appendChild(dot);
+      });
+    }
+
+    function setBackground(index, reset = false) {
+      currentBg = (index + heroBackgrounds.length) % heroBackgrounds.length;
+      bgLayers[0].style.backgroundImage = `url('${heroBackgrounds[currentBg]}')`;
+      bgLayers[0].classList.add("active");
+      bgLayers[1].classList.remove("active");
+      bgDots.querySelectorAll(".dot").forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === currentBg);
+      });
+      if (reset) restartBackgroundAuto();
+    }
+
+    function restartBackgroundAuto() {
+      clearInterval(bgTimer);
+      bgTimer = setInterval(() => setBackground(currentBg + 1), 4500);
+    }
+
+    createBgDots();
+    setBackground(0);
+    restartBackgroundAuto();
+
+    heroBackgrounds.forEach((src, index) => {
+      const testImage = new Image();
+      testImage.onerror = () => {
+        heroBackgrounds[index] = "logo6.svg";
+        setBackground(currentBg);
+      };
+      testImage.src = src;
+    });
+
+    appointmentForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      formMessage.textContent = "Tesekkurler! Randevu talebiniz alindi, ekibimiz kisa surede size ulasacak.";
+      formMessage.style.color = "#1f8f3f";
+      appointmentForm.reset();
+    });
+  </script>
+</body>
+</html>
